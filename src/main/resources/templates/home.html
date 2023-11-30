@@ -18,11 +18,20 @@
         margin: 0;
 
     }
+    .active
+    {
+        padding-left: 25px;
+    }
+
 </style>
 <body>
 <h1 style="display: inline-block;margin-bottom: 5px">xin chao:</h1>
 <span th:text="${user.email}"></span>
+<div>
+    <a href="post">Đăng bài</a>
+</div>
 <h1 style="text-align:center;">Các bài đăng</h1>
+
 
 
 
@@ -36,9 +45,10 @@
     <p style="margin-top :10px" th:text="${post.content}"></p>
     <div id="wp-comment">
   <form
-          action="comment"
+          action="addComment"
           method="post"
   >
+            <input type="hidden" name="idPost" th:value="${post.id}">
                <textarea
                        name="comment"
                >
@@ -49,30 +59,36 @@
     </div>
     <h3 style="border-top: 1px solid black;">Comments</h3>
     <div th:each="comment:${post.postComments}">
-        <p style="margin-bottom:0px" th:text="${comment.user.firstName}"></p>
-        <p style="font-size:13px; font-style: italic"
-           th:text="${comment.publishedAt}">
-        </p>
-        <p style="padding-left: 10px" th:text="${comment.content}"></p>
-        <span
-                id="reply"
-                style="color:dodgerblue;text-decoration: underline;font-size: 10px;cursor: pointer">Trả lời</span>
-        <span
-                id="like"
-                style="color:dodgerblue;text-decoration: underline;font-size: 10px;cursor: pointer">Thích</span>
-        <form
-                id="frmReply"
-                action="comment"
-                method="post"
-                style="display: none"
-        >
-               <textarea
-                       name="comment"
-               >
+
+        <div  th:classappend="${comment.parent==null} ? notActive : active">
+            <p  style="margin-bottom:0px" th:text="${comment.user.firstName}"></p>
+            <p style="font-size:13px; font-style: italic"
+               th:text="${comment.publishedAt}">
+            </p>
+            <p style="padding-left: 10px" th:text="${comment.content}"></p>
+            <span
+                    class="reply"
+                    style="color:dodgerblue;text-decoration: underline;font-size: 10px;cursor: pointer">Trả lời</span>
+            <span
+                    id="like"
+                    style="color:dodgerblue;text-decoration: underline;font-size: 10px;cursor: pointer">Thích</span>
+            <form
+            class="frmReply"
+                    action="Replycomment"
+                    method="post"
+                    style="display: none"
+            >
+                <input   name="commentID" type="hidden" th:value="${comment.id}" />
+                <input type="hidden" name="idPost" th:value="${post.id}">
+                <textarea
+                        name="comment"
+                >
 
          </textarea>
-            <button>Bình luận</button>
-        </form>
+                <button>Bình luận</button>
+            </form>
+        </div>
+
     </div>
 
 </div>
@@ -81,8 +97,8 @@
 <script>
     $(function(){
 
-        $('#reply').click(function(){
-            $('#frmReply').toggle();
+        $('.reply').click(function(){
+            $('.frmReply').toggle();
         });
 
 

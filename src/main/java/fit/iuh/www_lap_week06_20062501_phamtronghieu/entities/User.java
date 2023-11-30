@@ -62,6 +62,8 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<PostComment> postComments ;
 
-
+    public User(Long id) {
+        this.id = id;
+    }
 }
 

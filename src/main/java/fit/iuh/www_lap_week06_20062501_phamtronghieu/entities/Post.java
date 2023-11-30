@@ -70,6 +70,16 @@ public class Post {
     private List<PostComment> postComments ;
 
 
-
-
+    public Post(String content, String title, String metaTitle, Instant createdAt, boolean published, boolean summary, Instant publishedAt, Instant updatedAt, User author, Post parent) {
+        this.content = content;
+        this.title = title;
+        this.metaTitle = metaTitle;
+        this.createdAt = createdAt;
+        this.published = published;
+        this.summary = summary;
+        this.publishedAt = publishedAt;
+        this.updatedAt = updatedAt;
+        this.author = author;
+        this.parent = parent;
+    }
 }

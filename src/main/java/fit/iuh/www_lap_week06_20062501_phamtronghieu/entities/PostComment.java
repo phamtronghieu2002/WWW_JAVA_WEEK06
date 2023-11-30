@@ -49,6 +49,16 @@ public class PostComment  {
     @Column(name = "publishedAt")
     private Instant  publishedAt;
 
+    public PostComment(User user, Post post, PostComment parent, String title, Instant createdAt, boolean published, Instant publishedAt, String content) {
+        this.user = user;
+        this.post = post;
+        this.parent = parent;
+        this.title = title;
+        this.createdAt = createdAt;
+        this.published = published;
+        this.publishedAt = publishedAt;
+        this.content = content;
+    }
 
     @Lob
     @Column(name = "content", nullable = false)

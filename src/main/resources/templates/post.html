@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post</title>
+</head>
+<body>
+<h1 style="text-align: center">Đăng bài</h1>
+<h1 style="display: inline-block;margin-bottom: 5px">xin chao:</h1>
+<span th:text="${user.email}"></span>
+
+
+<form
+action="uploadPost"
+method="post"
+>
+
+    <label style="display: block">meta_title</label>
+    <input  name="meta_title"  />
+    <label style="display: block">title</label>
+    <input  name="title"  />
+    <label style="display: block">content</label>
+    <input  name="content"  />
+    <button>Đăng bài</button>
+
+</form>
+
+
+
+</body>
+</html>
