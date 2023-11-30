@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+    *{
+        margin:0;
+    }
+    p{
+        margin-bottom: 0px;
+    }
+    h1,h2,h3,h4
+    {
+        margin: 0;
+
+    }
+</style>
+<body>
+<h1 style="display: inline-block;margin-bottom: 5px">xin chao:</h1>
+<span th:text="${user.email}"></span>
+<h1 style="text-align:center;">Các bài đăng</h1>
+
+
+
+<fieldset  th:each="post:${posts}">
+    <legend>New Post:</legend>
+<div>
+    <p style="font-size:15px;font-weight: bold" th:text="${post.title}"></p>
+    <p style="font-size:13px;font-style: italic" th:text="${post.createdAt}"></p>
+    <p style="font-size:13px;font-style: italic;display: inline" th:text="${post.author.firstName}"></p>
+    <p style="font-size:13px;font-style: italic ;display: inline" th:text="${post.author.lastName}"></p>
+    <p style="margin-top :10px" th:text="${post.content}"></p>
+    <div id="wp-comment">
+  <form
+          action="comment"
+          method="post"
+  >
+               <textarea
+                       name="comment"
+               >
+
+         </textarea>
+      <button>Bình luận</button>
+  </form>
+    </div>
+    <h3 style="border-top: 1px solid black;">Comments</h3>
+    <div th:each="comment:${post.postComments}">
+        <p style="margin-bottom:0px" th:text="${comment.user.firstName}"></p>
+        <p style="font-size:13px; font-style: italic"
+           th:text="${comment.publishedAt}">
+        </p>
+        <p style="padding-left: 10px" th:text="${comment.content}"></p>
+        <span
+                id="reply"
+                style="color:dodgerblue;text-decoration: underline;font-size: 10px;cursor: pointer">Trả lời</span>
+        <span
+                id="like"
+                style="color:dodgerblue;text-decoration: underline;font-size: 10px;cursor: pointer">Thích</span>
+        <form
+                id="frmReply"
+                action="comment"
+                method="post"
+                style="display: none"
+        >
+               <textarea
+                       name="comment"
+               >
+
+         </textarea>
+            <button>Bình luận</button>
+        </form>
+    </div>
+
+</div>
+</fieldset>
+</body>
+<script>
+    $(function(){
+
+        $('#reply').click(function(){
+            $('#frmReply').toggle();
+        });
+
+
+    })
+</script>
+</html>
